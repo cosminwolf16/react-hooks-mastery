@@ -23,6 +23,10 @@ const Ingredients = () => {
       });
   }, []);
 
+  useEffect(() => {
+    console.log('pula', userIngredients);
+  }, [userIngredients]);
+
   const addIngredientHandler = (ingredient) => {
     fetch('https://react-hooks-testing-43a82.firebaseio.com/ingredients.json', {
       method: 'POST',
