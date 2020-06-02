@@ -46,6 +46,10 @@ const Ingredients = () => {
       });
   };
 
+  const filteredIngredientsHandler = (filteredIngredients) => {
+    setUserIngredients(filteredIngredients);
+  };
+
   const removeIngredientHandler = (ingId) => {
     setUserIngredients((prevIngredients) =>
       prevIngredients.filter((ingredient) => ingredient.id !== ingId)
@@ -60,7 +64,7 @@ const Ingredients = () => {
         onRemoveItem={removeIngredientHandler}
       />
       <section>
-        <Search />
+        <Search onLoadIngredients={filteredIngredientsHandler} />
         {/* Need to add list here! */}
       </section>
     </div>
