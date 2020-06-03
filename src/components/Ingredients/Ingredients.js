@@ -8,7 +8,7 @@ const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
 
   useEffect(() => {
-    console.log('pula', userIngredients);
+    console.log('se fumeaza stou', userIngredients);
   }, [userIngredients]);
 
   const addIngredientHandler = (ingredient) => {
@@ -35,9 +35,16 @@ const Ingredients = () => {
   }, []);
 
   const removeIngredientHandler = (ingId) => {
-    setUserIngredients((prevIngredients) =>
-      prevIngredients.filter((ingredient) => ingredient.id !== ingId)
-    );
+    fetch(
+      `https://react-hooks-testing-43a82.firebaseio.com/ingredients/${ingId}.json`,
+      {
+        method: 'DELETE',
+      }
+    ).then((response) => {
+      setUserIngredients((prevIngredients) =>
+        prevIngredients.filter((ingredient) => ingredient.id !== ingId)
+      );
+    });
   };
 
   return (
