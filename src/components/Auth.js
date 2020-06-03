@@ -7,8 +7,10 @@ import './Auth.css';
 const Auth = (props) => {
   const authContext = useContext(AuthContext);
 
-  const loginHandler = () => {};
-  authContext.login();
+  const loginHandler = () => {
+    authContext.login();
+  };
+
   return (
     <div className='auth'>
       <Card>
