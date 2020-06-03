@@ -6,12 +6,14 @@ import Search from './Search';
 
 const Ingredients = () => {
   const [userIngredients, setUserIngredients] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     console.log('se fumeaza stou', userIngredients);
   }, [userIngredients]);
 
   const addIngredientHandler = (ingredient) => {
+    setIsLoading(true);
     fetch('https://react-hooks-testing-43a82.firebaseio.com/ingredients.json', {
       method: 'POST',
       body: JSON.stringify(ingredient),
@@ -20,6 +22,7 @@ const Ingredients = () => {
       },
     })
       .then((response) => {
+        setIsLoading(false);
         return response.json();
       })
       .then((responseData) => {
@@ -35,12 +38,14 @@ const Ingredients = () => {
   }, []);
 
   const removeIngredientHandler = (ingId) => {
+    setIsLoading(true);
     fetch(
       `https://react-hooks-testing-43a82.firebaseio.com/ingredients/${ingId}.json`,
       {
         method: 'DELETE',
       }
     ).then((response) => {
+      setIsLoading(false);
       setUserIngredients((prevIngredients) =>
         prevIngredients.filter((ingredient) => ingredient.id !== ingId)
       );
@@ -49,7 +54,10 @@ const Ingredients = () => {
 
   return (
     <div className='App'>
-      <IngredientForm onAddIngredient={addIngredientHandler} />
+      <IngredientForm
+        onAddIngredient={addIngredientHandler}
+        loading={isLoading}
+      />
       <IngredientList
         ingredients={userIngredients}
         onRemoveItem={removeIngredientHandler}
